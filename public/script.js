@@ -4,6 +4,7 @@ let score = 0;
 let wicket = 0;
 let balls = 0;
 let overs = 0;
+let indx = 0;
 
 // Handle receiving random number
 socket.on('randomNumber', (randomNumber) => {
@@ -16,7 +17,7 @@ socket.on('randomNumber', (randomNumber) => {
         scoreText = 'White Ball';
         score++;
     } else if (randomNumber === -1) {
-        if (balls > 0 && scoreArray[balls - 1] === 'No Ball') {
+        if (scoreArray[indx] === 'No Ball') {
             // Skip counting wicket if previous ball was a No Ball
             scoreText = 'No Wicket';
             balls++;
@@ -35,7 +36,7 @@ socket.on('randomNumber', (randomNumber) => {
         balls = 0;
         overs++;
     }
-
+    indx++;
     scoreArray.push(scoreText); // Add the new score to the score array
     displayScoreboard(); // Update the scoreboard display
 });
